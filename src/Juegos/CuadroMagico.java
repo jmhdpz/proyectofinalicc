@@ -19,7 +19,7 @@ public class CuadroMagico {
      */
 
     /**
-     * Constructor por omisión.
+     * Constructor por omisión. Crea un cuadro mágico con la primera fila, columna o diagonal generada aleatoriamente
      */
     public CuadroMagico(){
         cuadro = new int[4][4];
@@ -72,11 +72,12 @@ public class CuadroMagico {
     /**
      * @param n - Número a evaluar.
      * @return boolean - Evalua si el número usado de parámetro se ha colocado ya, o no.
+     * @throws ExcepcionNumeroInvalido - Si el número usado de argumento está fuera del rango 1-16
      */
     private boolean numeroColocado(int n) throws ExcepcionNumeroInvalido{
         if (n > 16 || n < 0) throw new ExcepcionNumeroInvalido();
         for (int i = 0 ; i < 4 ; i++){
-            for (int j = 0 ; i < 4 ; i++){
+            for (int j = 0 ; j < 4 ; j++){
                 if (cuadro[i][j] == n) return true;
             }
         }
@@ -87,6 +88,7 @@ public class CuadroMagico {
      * @param fila - La fila que se desea evaluar
      * @param columna - La columna en la que se desea evaluar
      * @return boolean - Evalúa si la casilla en la que se intenta colocar, ya está ocupada, o no.
+     * @throws ExcepcionCasilaInvalida - Si la casilla usada de parámetro está fuero del rango (0,0), (3,3).
      */
     private boolean casillaOcupada(int fila, int columna) throws ExcepcionCasillaInvalida{
         if (fila < 0 || columna < 0 || fila > 3 || columna > 3) throw new ExcepcionCasillaInvalida();
@@ -98,11 +100,11 @@ public class CuadroMagico {
      * @param fila - La fila en la que se desea colocar el número
      * @param columna - La columna en la que se desea colocar el número
      * @param numero - El número que se desea colocar 
-     * @throws ExcepcionColocacionNoExitosa - Si el numero ya se ha usado, o la casilla no es valida
+     * @throws ExcepcionColocacionNoExitosa - Si el numero ya se ha usado, o la casilla no es valida.
      */
-    public void colocarNumero(int fila, char columna, int numero) throws ExcepcionColocacionNoExitosa{
+    public void colocarNumero(char columna,int fila, int numero) throws ExcepcionColocacionNoExitosa{
         int columnaNum = 5;
-        fila--;
+        fila--; 
         switch (columna) {
             case 'A':
                 columnaNum = 0;
@@ -166,5 +168,50 @@ public class CuadroMagico {
         "1 | "+A4+" | "+B4+" | "+C4+" | "+D4+" |\n"+
         "  ---------------------\n"+
         "    A    B    C    D";
+    }
+
+    /**
+     * @return boolean - true si el cuadro puede alcanzar una posición ganadora, false si no
+     */
+    public boolean distribucionValida(){
+        for (int i = 0 ; i < 4 ; i++){
+            if (cuadro[i][0] + cuadro[i][1] + cuadro[i][2] + cuadro[i][3] > 34) return false;
+            if (cuadro[0][i] + cuadro[1][i] + cuadro[2][i] + cuadro[3][i] > 34) return false;
+            for (int j = 16 ; j > 0 ; j--){
+                try{
+                    if (numeroColocado(j)){
+                        if (cuadro[i][0] + cuadro[i][1] + cuadro[i][2] + cuadro[i][3] + j == 34 && cuadro[i][0] != j && cuadro[i][1] != j && cuadro[i][2] != j && cuadro[i][3] != j) return false;
+                        if (cuadro[0][i] + cuadro[1][i] + cuadro[2][i] + cuadro[3][i] + j == 34 && cuadro[0][i] != j && cuadro[1][i] != j && cuadro[2][i] != j && cuadro[3][i] != j) return false;
+                        if (cuadro[0][0] + cuadro[1][1] + cuadro[2][2] + cuadro[3][3] + j == 34 && cuadro[0][0] != j && cuadro[1][1] != j && cuadro[2][2] != j && cuadro[3][3] != j) return false;
+                        if (cuadro[3][0] + cuadro[2][1] + cuadro[1][2] + cuadro[0][3] + j == 34 && cuadro[3][0] != j && cuadro[2][1] != j && cuadro[1][2] != j && cuadro[0][3] != j) return false;
+                    }
+                } catch (ExcepcionNumeroInvalido e){}
+            }
+        }
+        if (cuadro [0][0] + cuadro[1][1] + cuadro[2][2] + cuadro[3][3] > 34) return false;
+        if (cuadro [3][0] + cuadro[2][1] + cuadro[1][2] + cuadro[0][3] > 34) return false;
+        return true;
+    }
+
+    /**
+     * @return boolean - true si el cuadro es ganador, false si no lo es.
+     */
+    public boolean ganador(){
+        for (int i = 0 ; i < 4 ; i++){
+            if (cuadro[i][0] + cuadro[i][1] + cuadro[i][2] + cuadro[i][3] != 34) return false;
+            if (cuadro[0][i] + cuadro[1][i] + cuadro[2][i] + cuadro[3][i] != 34) return false;
+        }
+        if (cuadro [0][0] + cuadro[1][1] + cuadro[2][2] + cuadro[3][3] != 34) return false;
+        if (cuadro [3][0] + cuadro[2][1] + cuadro[1][2] + cuadro[0][3] != 34) return false;
+        return true;
+    }
+
+    /**
+     * @return boolean - true si el cuadro puede alcanzar una posición ganadora, o está en una. false si no.
+     */
+    public boolean juegoTerminado(){
+        if (!distribucionValida()) return true;
+        if (ganador()) return true;
+        return false;
     }
 }

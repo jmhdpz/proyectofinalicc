@@ -1,25 +1,35 @@
 import src.Juegos.CuadroMagico;
-import java.util.Random;
+import java.util.Scanner;
 public class Main {
     public static void main(String[] werfwerf) {
+        Scanner a = null;
         try{
-            Random rng = new Random();
             CuadroMagico tumama = new CuadroMagico();
             System.out.println(tumama);
-            for (int i = 0 ; i < 16 ; i++){
-                int col = rng.nextInt(1,4);
-                char colu = ' ';
-                switch (col){
-                    case 1:colu='A';break;
-                    case 2:colu='B';break;
-                    case 3:colu='C';break;
-                    case 4:colu='D';break;
+            while (true){
+                a = new Scanner(System.in);
+                System.out.println("char");
+                char col = a.nextLine().charAt(0);
+                System.out.println("fila");
+                int fila = a.nextInt();
+                System.out.println("num");
+                int num = a.nextInt();
+                tumama.colocarNumero(col,fila, num);
+                System.out.println(tumama);
+                if (tumama.juegoTerminado()){
+                    if (tumama.ganador()){
+                        System.out.println("ganaste");
+                    } else {
+                        System.out.println("ya perdiste cabron");
+                    }
+                } else {
+                    System.out.println("no has acabado pendejo inutil");
                 }
-                tumama.colocarNumero(rng.nextInt(1,4), colu, rng.nextInt(1,16));
             }
-            System.out.println(tumama);
+        } catch (ArrayIndexOutOfBoundsException e){
+            e.printStackTrace();
         } catch (Exception e){
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 }
