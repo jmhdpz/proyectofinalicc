@@ -5,16 +5,25 @@
 - José María Hernández Pérez
 - 425082384
 - jmhdpz@ciencias.unam.mx
+
 Y
+
 - Aldo Enrique Yáñez Ramirez
 -
 -
 
 ### Un día en la feria
-Para la primera entrega, subiremos únicamente los 2 juegos solicitados y un Main que permita probarlos. Posteriormente se añadirán los menús, los sistemas de puntaje y su persistencia.
+Main:
+- Registro de jugadores (No hecho)
+- Iniciar nuevo juego (No hecho)
+- Ver 3 mejores jugadores (No hecho)
+- Ver puntos acumulados por jugador actual (No hecho)
+- Guardar y salir (No hecho)
+
 Día 1:
 - Cuadro mágico (Completo, sin documentar)
 - Conecta 4 (No iniciado)
+
 Día 2:
 - Salvados (No iniciado)
 - Torres de Hanoi (No iniciado)
