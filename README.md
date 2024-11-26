@@ -3,8 +3,8 @@
 ## Profesora y ayudantes: Amparo Lopez Gaona, Ramses Antonio Lopez Soto, Adrian Aguilera Moreno, Kevin Jair Torres Valencia
 ## Presentan: 
 - José María Hernández Pérez
--
--
+- 425082384
+- jmhdpz@ciencias.unam.mx
 Y
 - Aldo Enrique Yáñez Ramirez
 -
