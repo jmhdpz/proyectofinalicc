@@ -9,8 +9,8 @@
 Y
 
 - Aldo Enrique Yáñez Ramirez
--
--
+-321288079
+-aldoenriqueramirez@ciencias.unam.mx
 
 ### Un día en la feria
 Main:
