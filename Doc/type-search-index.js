@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"src.Juegos","l":"CuadroMagico"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"src.Juegos","l":"CuadroMagico"},{"p":"src.Excepciones","l":"ExcepcionCasillaInvalida"},{"p":"src.Excepciones","l":"ExcepcionColocacionNoExitosa"},{"p":"src.Excepciones","l":"ExcepcionNumeroInvalido"},{"p":"src.Excepciones","l":"ExcepcionSillaInvalida"},{"p":"src.Juegos","l":"Salvados"}];updateSearchResults();
