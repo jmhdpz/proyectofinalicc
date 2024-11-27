@@ -97,6 +97,5 @@ public class Salvados {
             darPasos();
         }
         return (n - 1) == buscarTrue(); 
-    }
-    
+    }   
 }
