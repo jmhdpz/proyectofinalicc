@@ -49,6 +49,10 @@ public class Salvados {
         return false;
     }
 
+    /**
+     * Método encargado de dar los pasos para el juego
+     * @return boolean - true si ya hay 99 sillas eliminadas. false en caso contrario
+     */
     private boolean darPasos() {
         int acc = 0;
         int indice = 0;   
@@ -70,6 +74,9 @@ public class Salvados {
         return verificarGanador(); 
     }
     
+    /**
+     * @return int - El indice de la silla ganadora. 0 si no se ha encontrado.
+     */
     private int buscarTrue(){
         if (!verificarGanador()) return 0;
         for (int i = 0 ; i < 100; i++){
@@ -78,6 +85,12 @@ public class Salvados {
         return 0;
     }
 
+    /**
+     * Método principal de la clase. Ejecuta la secuencia necesaria para jugar (menos el elegirPasos, para que se pueda llamar antes de elegir el número)
+     * @param n - Silla a elegir
+     * @return boolean - true si la silla elegida es ganadora, false en caso opuesto
+     * @throws ExcepcionSillaInvalida - Si la silla está fuera del rango 1-100
+     */
     public boolean jugar(int n) throws ExcepcionSillaInvalida {
         if (n < 1 || n > 100) throw new ExcepcionSillaInvalida();
         while (!verificarGanador()) {
