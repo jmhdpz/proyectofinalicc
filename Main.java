@@ -1,35 +1,20 @@
 import src.Juegos.CuadroMagico;
+import src.Juegos.Salvados;
 import java.util.Scanner;
 public class Main {
     public static void main(String[] werfwerf) {
         Scanner a = null;
-        try{
-            CuadroMagico tumama = new CuadroMagico();
-            System.out.println(tumama);
-            while (true){
-                a = new Scanner(System.in);
-                System.out.println("char");
-                char col = a.nextLine().charAt(0);
-                System.out.println("fila");
-                int fila = a.nextInt();
-                System.out.println("num");
-                int num = a.nextInt();
-                tumama.colocarNumero(col,fila, num);
-                System.out.println(tumama);
-                if (tumama.juegoTerminado()){
-                    if (tumama.ganador()){
-                        System.out.println("ganaste");
-                    } else {
-                        System.out.println("ya perdiste cabron");
-                    }
-                } else {
-                    System.out.println("no has acabado pendejo inutil");
-                }
-            }
-        } catch (ArrayIndexOutOfBoundsException e){
-            e.printStackTrace();
-        } catch (Exception e){
-            e.printStackTrace();
+        try {
+            a = new Scanner(System.in);
+            Salvados eeee = new Salvados();
+            eeee.elegirPasos(); 
+            int pasos = a.nextInt();
+            boolean pene = eeee.jugar(pasos);
+            System.out.println(pene);
+        } catch (Exception e) {
+            // TODO: handle exception
+        } finally{
+            a.close();
         }
     }
 }
