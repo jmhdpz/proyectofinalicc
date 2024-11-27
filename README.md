@@ -21,9 +21,9 @@ Main:
 - Guardar y salir (No hecho)
 
 Día 1:
-- Cuadro mágico (Completo, sin documentar)
+- Cuadro mágico (Completo, documentado)
 - Conecta 4 (No iniciado)
 
 Día 2:
-- Salvados (No iniciado)
+- Salvados (Completo, sin documentar)
 - Torres de Hanoi (No iniciado)
