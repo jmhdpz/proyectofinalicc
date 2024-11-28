@@ -77,7 +77,7 @@ public class Salvados {
     /**
      * @return int - El indice de la silla ganadora. 0 si no se ha encontrado.
      */
-    private int buscarTrue(){
+    public int buscarTrue(){
         if (!verificarGanador()) return 0;
         for (int i = 0 ; i < 100; i++){
             if (sillas[i]) return i;
