@@ -1,85 +1,96 @@
-import src.Excepciones.ExcepcionColocacionNoExitosa;
-import src.Excepciones.ExcepcionSillaInvalida;
-import src.Juegos.CuadroMagico;
-import src.Juegos.Salvados;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import src.Misc.*;
 public class Main {
-    public static void main(String[] werfwerf) {
+    public static void main(String[] werfwerf) throws IOException {
         Scanner in = new Scanner(System.in); 
-        boolean run = true;
-        System.out.println("Bienvenido.\nEste es un menu provisional, para probar los dos juegos funcionales actualmente. En el README se puede ver el avance que llevamos.");
-        
-        while (run) {
-            System.out.println("Por favor, elige cual de los juegos quieres probar:\n1. Cuadro magico\n2. Salvados.\n3. Cerrar.");
+        ObjectInputStream lector = null;
+        try {
+            lector = new ObjectInputStream(new FileInputStream("jugadores.txt"));
+            Jugador[] jugadores = null;
+        try {
+            jugadores = (Jugador[]) lector.readObject();
+        } catch (Exception e) {}
+        if (jugadores == null) jugadores = new Jugador[100];
+        int numJugadores = 0;
+        for (int i = 0 ; i < 100; i++) {
+            if (jugadores[i] != null) numJugadores++;
+        }
+
+        int dia = 1;
+        while (dia < 3){
+            System.out.println("Bienvenido a la feria. Actualmente es el dia "+dia+". Elige una opcion:\n1. Registrar jugador.\n2. Ver mejores jugadores.\n3. Jugar. Juegos disponibles hoy: "+(dia == 1 ? "Cuadro magico (1 jugador), Conecta 4 (2 jugadores)." : "Salvados (1 jugador), Torres de Hanoi (1 jugador).")+"\n4. Ver a un jugador especifico.\n5. Avanzar dia\n6. Guardar y salir."); 
             try {
                 int eleccion = in.nextInt();
-                in.nextLine(); 
+                in.nextLine();
                 switch (eleccion) {
                     case 1:
-                        System.out.println("Bienvenido al juego de cuadro magico. A continuacion se te presentara un cuadro de 4x4, con una fila, columna o diagonal ya generada. Tu objetivo es hacer que todas las filas, columnas y diagonales del cuadro sumen la misma cantidad, colocando un numero entre 1 y 16 a la vez. No puedes repetir numeros, ni moverlos una vez que los coloques. Por lo tanto, deberas pensar bien tus movimientos antes de llevarlos a cabo.");
-                        CuadroMagico cm = new CuadroMagico();
-                        while (!cm.juegoTerminado()) {
+                        System.out.println("Como se llamara el jugador?");
+                        boolean listo = false;
+                        String nombre = null;
+                        while (!listo){
                             try {
-                                System.out.println(cm);
-                                System.out.println("Introduce la columna donde deseas colocar un numero.");
-                                char col = in.nextLine().toUpperCase().charAt(0);
-                                System.out.println("Introduce la fila donde deseas introducir un numero.");
-                                int fila = in.nextInt();
-                                System.out.println("Introduce el numero que deseas colocar.");
-                                int num = in.nextInt();
-                                in.nextLine(); 
-                                cm.colocarNumero(col, fila, num);
-                            } catch (InputMismatchException e) {
-                                System.out.println("Input inválido. Intenta de nuevo.");
-                                in.nextLine(); 
-                            } catch (ExcepcionColocacionNoExitosa e) {
-                                System.out.println(e.getMessage());
+                                nombre = in.nextLine();
+                                listo = true;
+                            } catch (Exception e) {
+                                System.out.println("Hubo un error con tu entrada. Por favor intenta de nuevo");
                             }
                         }
-                        if (cm.ganador()) { 
-                            System.out.println("Felicidades, lograste completar el cuadro correctamente."); 
-                        } else {
-                            System.out.println("Lamentablemente, tu cuadro no puede llegar a una posicion ganadora. Ahora volveras al menu.");
-                        }
+                        jugadores[numJugadores] = new Jugador(nombre);
+                        numJugadores++;
                         break;
                     case 2:
-                        System.out.println("Bienvenido al juego de salvados. En este juego, tendras 100 sillas para escoger. Al inicio de la ronda se te dira el numero de pasos que se dara cada vez (es decir, si el numero de pasos es 3, la primera silla en eliminarse es 3, y la segunda es 6, y asi sucesivamente.) para eliminar sillas, y con esta informacion, deberas elegir una silla, intentando predecir la ultima silla en ser eliminada, es decir, la ganadora. Ten en cuenta que si este numero de pasos causa que se repitan las sillas eliminadas (Por ejemplo, 50 causaria que se elimine 50, luego 100, y luego de vuelta a 50), este se volvera a generar aleatoriamente, pero tu eleccion ya no podra cambiarse.");
-                        Salvados sv = new Salvados();
-                        boolean terminado = false;
-                        do {
-                            try {
-                                sv.elegirPasos();
-                                System.out.println("Elige la silla del 1 al 100 que creas que va a ganar.");
-                                int silla = in.nextInt();
-                                in.nextLine(); 
-                                if (sv.jugar(silla)) {
-                                    System.out.println("Felicidades, elegiste la silla ganadora.");
-                                } else { 
-                                    System.out.println("Has elegido la silla incorrecta. La silla ganadora era la numero " + sv.buscarTrue());
-                                }
-                                terminado = true;
-                            } catch (InputMismatchException e) {
-                                System.out.println("Tu eleccion no es valida. El juego se reiniciara, por favor intenta de nuevo.");
-                                in.nextLine(); 
-                            } catch (ExcepcionSillaInvalida e) {
-                                System.out.println("Recuerda que la silla a elegir debe estar entre 1 y 100. El juego se reiniciara, por favor intenta de nuevo.");
+                        try {
+                            Jugador[] jugadoresTemp = new Jugador[numJugadores];
+                            for (int i = 0 ; i < numJugadores ; i++){
+                                jugadoresTemp[i] = jugadores[i];
                             }
-                        } while (!terminado);
+                            OrdenamientoGenerico<Jugador> ordenamientoJugadores = new OrdenamientoGenerico<>(jugadoresTemp);
+                            jugadoresTemp = ordenamientoJugadores.ordenar();
+                            System.out.println("---------------------------------\nLos mejores jugadores son:");
+                            for (int i = numJugadores - 1 ; i >= 0 ; i--){
+                                if (numJugadores - i < 4) System.out.println("\n"+(numJugadores - i) + ". "+jugadoresTemp[i]);
+                            }                            
+                            System.out.println("---------------------------------");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            System.out.println("Ocurrio un error inesperado.");
+                        }
                         break;
                     case 3:
-                        System.out.println("Hasta luego.");
-                        run = false;
+                        if (dia == 1){
+                            DiaUno.main(werfwerf);
+                        } else {
+                            DiaDos.main(werfwerf);
+                        }
                         break;
+                    case 4:
+
+                        break;
+                    case 5:
+                        dia++;
+                        break;
+                    case 6:
+                        ObjectOutputStream escritor = new ObjectOutputStream(new FileOutputStream ("jugadores.txt"));
+                        escritor.writeObject(jugadores);
+                        return;
                     default:
                         System.out.println("Introduce un valor valido.");
+                        in.nextLine();
                         break;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Introduce un valor valido.");
-                in.nextLine(); 
+                in.nextLine();
             }
         }
-        in.close(); 
+        in.close();
+        if (lector != null) lector.close();
+        } catch (Exception e) {}
     }
 }

@@ -77,6 +77,7 @@ public class ConectaCuatro {
      * @return char - 'r' si gano el jugador con las fichas rojas. 'a' si gano el jugador con las fichas amarillas. ' ' en caso opuesto
      */
     public char ganador() {
+        if (empate()) return 'e';
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 4; j++) {
                 if (tablero[i][j] != ' ' && tablero[i][j] == tablero[i][j + 1] && tablero[i][j] == tablero[i][j + 2] && tablero[i][j] == tablero[i][j + 3]){

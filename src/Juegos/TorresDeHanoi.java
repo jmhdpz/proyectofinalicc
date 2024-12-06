@@ -96,6 +96,11 @@ public class TorresDeHanoi {
     }
 
     /**
+     * @return int - La cantidad de movimientos realizados hasta el momento.
+     */
+    public int obtenerContador(){ return acc; }
+
+    /**
      * @return Una cadena que representa el juego en su estado actual.
      */
     @Override

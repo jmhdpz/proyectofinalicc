@@ -14,16 +14,16 @@ Y
 
 ### Un día en la feria
 Main:
-- Registro de jugadores (No hecho)
-- Iniciar nuevo juego (No hecho)
-- Ver 3 mejores jugadores (No hecho)
+- Registro de jugadores (Terminado)
+- Iniciar nuevo juego (Falta la parte de los puntos)
+- Ver 3 mejores jugadores (Terminado)
 - Ver puntos acumulados por jugador actual (No hecho)
-- Guardar y salir (No hecho)
+- Guardar y salir (Terminado)
 
 Día 1:
 - Cuadro mágico (Completo, documentado)
-- Conecta 4 (No iniciado)
+- Conecta 4 (Completo, documentado)
 
 Día 2:
-- Salvados (Completo, sin documentar)
-- Torres de Hanoi (No iniciado)
+- Salvados (Completo, documentado)
+- Torres de Hanoi (Completo, documentado)
