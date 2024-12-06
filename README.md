@@ -22,8 +22,16 @@ Main:
 
 Día 1:
 - Cuadro mágico (Completo, documentado)
+<<<<<<< HEAD
 - Conecta 4 (Completo, documentado)
 
 Día 2:
 - Salvados (Completo, documentado)
 - Torres de Hanoi (Completo, documentado)
+=======
+- Conecta 4 (Completo, sin documentar)
+
+Día 2:
+- Salvados (Completo, documentado)
+- Torres de Hanoi (Completo, sin documentar)
+>>>>>>> ee0aa865c3ef23d74406191864366685d2fe2bbc
