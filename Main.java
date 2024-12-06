@@ -33,17 +33,30 @@ public class Main {
                         System.out.println("Como se llamara el jugador?");
                         boolean listo = false;
                         String nombre = null;
-                        while (!listo){
+                        boolean nombreRegistrado = false;  
+                        while (!listo) {
                             try {
                                 nombre = in.nextLine();
+                                nombreRegistrado = false; 
+                                for (Jugador j : jugadores) {
+                                    if (j != null && j.obtenerNombre().equals(nombre)) {
+                                    nombreRegistrado = true;  
+                                    System.out.println("Ya hay un jugador registrado con ese nombre. Regresaras al menu.");
+                                    break; 
+                                    }
+                                }
                                 listo = true;
                             } catch (Exception e) {
                                 System.out.println("Hubo un error con tu entrada. Por favor intenta de nuevo");
                             }
                         }
-                        jugadores[numJugadores] = new Jugador(nombre);
-                        numJugadores++;
-                        break;
+                    if (!nombreRegistrado) {
+                        if (nombre != null){
+                            jugadores[numJugadores] = new Jugador(nombre);
+                            numJugadores++;
+                        }
+                    }
+                    break;
                     case 2:
                         try {
                             Jugador[] jugadoresTemp = new Jugador[numJugadores];
@@ -70,7 +83,25 @@ public class Main {
                         }
                         break;
                     case 4:
-
+                        String nombreBuscar = null;
+                        boolean busqueda = false;
+                        System.out.println("Introduce el nombre del jugador que deseas buscar: ");
+                        while (!busqueda){
+                            try {
+                                nombreBuscar = in.nextLine();
+                                busqueda = true;
+                            } catch (Exception e) {
+                                System.out.println("Hubo un error con tu entrada. Intenta de nuevo");
+                            }
+                        }
+                        boolean encontrado = false;
+                        for (int i = 0 ; i < numJugadores ; i++){
+                            if (nombreBuscar == jugadores[i].obtenerNombre()){ 
+                                System.out.println(jugadores[i]);
+                                encontrado = true;
+                            }
+                        }
+                        if (!encontrado) System.out.println("No se pudo encontrar el jugador que buscas.");
                         break;
                     case 5:
                         dia++;

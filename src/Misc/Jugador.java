@@ -32,6 +32,16 @@ public class Jugador implements Comparable<Jugador>, Serializable {
     public int obtenerPuntos() { return puntos; }
 
     /**
+     * @return String - El nombre del jugador
+     */
+    public String obtenerNombre() { return nombre; }
+
+    /**
+     * @param cr - Los creditos a cobrar del jugador.
+     */
+    public void cobrarCreditos(int cr) { creditos -= cr; }
+
+    /**
      * @param pts - Los puntos que se desean agregar al jugador.
      */
     public void agregarPuntos(int pts) { puntos += pts; }
