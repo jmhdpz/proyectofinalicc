@@ -14,11 +14,12 @@ Y
 
 ### Un día en la feria
 Main:
-- Registro de jugadores (Terminado)
-- Iniciar nuevo juego (Falta la parte de los puntos)
-- Ver 3 mejores jugadores (Terminado)
-- Ver puntos acumulados por jugador actual (Terminado)
-- Guardar y salir (Terminado)
+Todas las funcionalidades añadidas.
+- Registro de jugadores 
+- Iniciar nuevo juego 
+- Ver 3 mejores jugadores 
+- Ver puntos acumulados por jugador actual (Cambiado a funcionalidad de buscar jugador)
+- Guardar y salir 
 
 Día 1:
 - Cuadro mágico (Completo, documentado)

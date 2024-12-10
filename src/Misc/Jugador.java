@@ -2,6 +2,8 @@ package src.Misc;
 
 import java.io.Serializable;
 
+import src.Excepciones.ExcepcionBalanceNegativo;
+
 public class Jugador implements Comparable<Jugador>, Serializable {
     /**
      * Nombre del jugador.
@@ -38,13 +40,19 @@ public class Jugador implements Comparable<Jugador>, Serializable {
 
     /**
      * @param cr - Los creditos a cobrar del jugador.
+     * @throws ExcepcionBalanceNegativo - Si no se puede sustraer esa cantidad de creditos
      */
-    public void cobrarCreditos(int cr) { creditos -= cr; }
+    public void cobrarCreditos(int cr) throws ExcepcionBalanceNegativo { 
+        if (cr > creditos) throw new ExcepcionBalanceNegativo(nombre);
+        creditos -= cr; 
+    }
 
     /**
      * @param pts - Los puntos que se desean agregar al jugador.
      */
-    public void agregarPuntos(int pts) { puntos += pts; }
+    public void agregarPuntos(int pts) {
+        puntos += pts; 
+    }
 
     /**
      * Metodo utilizado para comparar jugadores entre si, respecto a su puntaje
