@@ -1,22 +1,14 @@
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
-import src.Excepciones.ExcepcionBalanceNegativo;
-import src.Excepciones.ExcepcionMovimientoIlegal;
-import src.Excepciones.ExcepcionPosteInvalido;
-import src.Excepciones.ExcepcionSillaInvalida;
-import src.Juegos.ConectaCuatro;
-import src.Juegos.CuadroMagico;
-import src.Juegos.Salvados;
-import src.Juegos.TorresDeHanoi;
+import src.Excepciones.*;
+import src.Juegos.*;
 import src.Misc.*;
 public class Main {
-    public static void main(String[] werfwerf) throws IOException {
+    public static void main(String[] werfwerf) {
         Scanner in = new Scanner(System.in); 
         ObjectInputStream lector = null;
         try {
@@ -28,12 +20,12 @@ public class Main {
         if (jugadores == null) jugadores = new Jugador[100];
         int numJugadores = 0;
         ObjectOutputStream escritor = new ObjectOutputStream(new FileOutputStream ("jugadores.txt"));
-        for (int i = 0 ; i < 100; i++) {
-            if (jugadores[i] != null) numJugadores++;
-        }
 
         int dia = 1;
         while (dia < 3){
+            for (int i = 0 ; i < 100; i++) {
+                if (jugadores[i] != null) numJugadores++;
+            }
             System.out.println("Bienvenido a la feria. Actualmente es el dia "+dia+". Elige una opcion:\n1. Registrar jugador.\n2. Ver mejores jugadores.\n3. Jugar. Juegos disponibles hoy: "+(dia == 1 ? "Cuadro magico (1 jugador), Conecta 4 (2 jugadores)." : "Salvados (1 jugador), Torres de Hanoi (1 jugador).")+"\n4. Ver a un jugador especifico.\n5. Avanzar dia\n6. Guardar y salir."); 
             try {
                 int eleccion = in.nextInt();
@@ -46,7 +38,7 @@ public class Main {
                         boolean nombreRegistrado = false;  
                         while (!listo) {
                             try {
-                                nombre = in.nextLine();
+                                nombre = in.nextLine().trim();
                                 nombreRegistrado = false; 
                                 for (Jugador j : jugadores) {
                                     if (j != null && j.obtenerNombre().equals(nombre)) {
@@ -81,7 +73,6 @@ public class Main {
                             }                            
                             System.out.println("---------------------------------");
                         } catch (Exception e) {
-                            e.printStackTrace();
                             System.out.println("Ocurrio un error inesperado.");
                         }
                         break;
@@ -101,7 +92,7 @@ public class Main {
                                             String nombreCM = null;
                                             while (!booleanoCM) {
                                                 try {
-                                                    nombreCM = in.nextLine();
+                                                    nombreCM = in.nextLine().trim();
                                                     booleanoCM = true;
                                                 } catch (Exception e) {
                                                     System.out.println("Hubo un error con tu entrada. Por favor intenta de nuevo.");
@@ -119,7 +110,7 @@ public class Main {
                                                 break;
                                             }
                                             try {
-                                                jugadores[jugadorCM].cobrarCreditos(2);
+                                                jugadores[jugadorCM].cobrarCreditos(15);
                                             } catch (ExcepcionBalanceNegativo e) {
                                                 System.out.println(e.getMessage());
                                                 break;
@@ -138,24 +129,27 @@ public class Main {
                                                     cm.colocarNumero(col, fila, num);
                                                 } catch (Exception e) {
                                                     System.out.println(e.getMessage());
-                                                    in.nextLine();
                                                 }
                                             }
                                             if (cm.ganador()) {
                                                 System.out.println("Felicidades, lograste completar el cuadro correctamente.");
                                                 jugadores[jugadorCM].agregarPuntos(10);
                                             } else {
-                                                System.out.println("No se logro completar el cuadro.");
+                                                System.out.println("No se logro completar el cuadro, pues la disposicion actual no permite llegar a un cuadro valido.\n"+cm+"\nNo se te otorgaran puntos.");
                                             }
                                             break;
                                         case 2:
+                                            if (numJugadores < 2){
+                                                System.out.println("Para este juego se necesitan minimo dos jugadores. Intenta registrar mas.");
+                                                break;
+                                            }
                                             System.out.println("Bienvenidos al juego de Conecta Cuatro. En este juego se alternaran turnos para colocar fichas en las columnas que caeran hasta donde les sea posible. El objetivo es lograr conectar 4 fichas en fila, columna o diagonal.\n\nEste juego cuesta 15 creditos.\nEl ganador obtendra 10 puntos, y el perdedor 2. En caso de empate, se le otorgaran 5 puntos a cada uno.");
                                             System.out.println("Jugador uno. Introduce tu nombre:");
                                             String nombreJ1 = null;
                                             boolean booleanoJ1 = false;
                                             while (!booleanoJ1){
                                                 try {
-                                                nombreJ1 = in.nextLine();
+                                                nombreJ1 = in.nextLine().trim();
                                                 booleanoJ1 = true;
                                                 } catch (Exception e) {
                                                     System.out.println("Hubo un problema con tu entrada. Por favor intenta de nuevo.");
@@ -177,8 +171,11 @@ public class Main {
                                             boolean booleanoJ2 = false;
                                             while (!booleanoJ2){
                                                 try {
-                                                    nombreJ2 = in.nextLine();
+                                                    nombreJ2 = in.nextLine().trim();
+                                                    if (nombreJ2.equals(nombreJ1)) throw new IllegalArgumentException();
                                                     booleanoJ2 = true;
+                                                } catch (IllegalArgumentException e) {
+                                                    System.out.println("No puedes jugar contra ti mismo. Por favor intenta de nuevo.");
                                                 } catch (Exception e) {
                                                     System.out.println("Hubo un problema con tu entrada. Por favor intenta de nuevo.");
                                                 }
@@ -213,7 +210,7 @@ public class Main {
                                                     c4.colocarAmarillo(in.nextInt());
                                                 } catch (Exception e) {
                                                     System.out.println(e.getMessage());
-                                                    in.nextLine();
+                                                    in.nextLine().trim();
                                                 }
                                             }
                                             if (c4.ganador() == 'r') {
@@ -231,6 +228,7 @@ public class Main {
                                             }
                                             break;
                                         case 3:
+                                            run1 = false;
                                             break;
                                         default:
                                             System.out.println("Opcion no valida.");
@@ -259,8 +257,8 @@ public class Main {
                                             boolean booleanoSV = false;
                                             while (!booleanoSV){
                                                 try {
-                                                    nombreSV = in.nextLine();
-                                                booleanoSV = true;
+                                                    nombreSV = in.nextLine().trim();
+                                                    booleanoSV = true;
                                                 } catch (Exception e) {
                                                     System.out.println("Hubo un error con tu entrada. Vuelve a intentar");
                                                 }
@@ -318,7 +316,7 @@ public class Main {
                                             String nombreTH = null;
                                             while (!booleanoTH) {
                                                 try {
-                                                    nombreTH = in.nextLine();
+                                                    nombreTH = in.nextLine().trim();
                                                     booleanoTH = true;
                                                 } catch (Exception e) {
                                                     System.out.println("Hubo un error con tu entrada. Por favor intenta de nuevo.");
@@ -389,7 +387,7 @@ public class Main {
                         System.out.println("Introduce el nombre del jugador que deseas buscar: ");
                         while (!busqueda){
                             try {
-                                nombreBuscar = in.nextLine();
+                                nombreBuscar = in.nextLine().trim();
                                 busqueda = true;
                             } catch (Exception e) {
                                 System.out.println("Hubo un error con tu entrada. Intenta de nuevo");

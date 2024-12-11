@@ -130,6 +130,8 @@ public class CuadroMagico {
                 } catch (Exception e) {
                     throw new ExcepcionColocacionNoExitosa(e.getMessage());
                 }
+            } else {
+                throw new ExcepcionColocacionNoExitosa(new ExcepcionNumeroInvalido().getMessage());
             }
         } catch (Exception e) {
             throw new ExcepcionColocacionNoExitosa(e.getMessage());
