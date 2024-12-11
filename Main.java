@@ -41,8 +41,8 @@ public class Main {
                                 nombreRegistrado = false; 
                                 for (Jugador j : jugadores) {
                                     if (j != null && j.obtenerNombre().equals(nombre)) {
-                                    nombreRegistrado = true;  
-                                    System.out.println("Ya hay un jugador registrado con ese nombre. Regresaras al menu.");
+                                        nombreRegistrado = true;  
+                                        System.out.println("Ya hay un jugador registrado con ese nombre. Regresaras al menu.");
                                     break; 
                                     }
                                 }
@@ -103,9 +103,11 @@ public class Main {
                                             }
                                             int jugadorCM = -1;
                                             for (int i = 0; i < numJugadores; i++) {
-                                                if (jugadores[i].obtenerNombre().equals(nombreCM)) {
-                                                    jugadorCM = i;
-                                                    break;
+                                                if (jugadores[i] != null){
+                                                    if (jugadores[i].obtenerNombre().equals(nombreCM)) {
+                                                        jugadorCM = i;
+                                                        break;
+                                                    }
                                                 }
                                             }
                                             if (jugadorCM == -1) {
@@ -160,7 +162,7 @@ public class Main {
                                             }
                                             int jugador1 = -1;
                                             for (int i = 0; i < numJugadores; i++) {
-                                                if (jugadores[i].obtenerNombre().equals(nombreJ1)) {
+                                                if (jugadores[i] != null && jugadores[i].obtenerNombre().equals(nombreJ1)) {
                                                     jugador1 = i;
                                                     break;
                                                 }
@@ -185,7 +187,7 @@ public class Main {
                                             }
                                             int jugador2 = -1;
                                             for (int i = 0; i < numJugadores; i++) {
-                                                if (jugadores[i].obtenerNombre().equals(nombreJ2)) {
+                                                if (jugadores[i] != null && jugadores[i].obtenerNombre().equals(nombreJ2)) {
                                                     jugador2 = i;
                                                     break;
                                                 }
@@ -268,7 +270,7 @@ public class Main {
                                             }
                                             int jugadorSV = -1;
                                             for (int i = 0; i < numJugadores; i++) {
-                                                if (jugadores[i].obtenerNombre().equals(nombreSV)) {
+                                                if (jugadores[i] != null && jugadores[i].obtenerNombre().equals(nombreSV)) {
                                                     jugadorSV = i;
                                                     break;
                                                 }
@@ -327,7 +329,7 @@ public class Main {
                                             }
                                             int jugadorTH = -1;
                                             for (int i = 0; i < numJugadores; i++) {
-                                                if (jugadores[i].obtenerNombre().equals(nombreTH)) {
+                                                if (jugadores[i] != null && jugadores[i].obtenerNombre().equals(nombreTH)) {
                                                     jugadorTH = i;
                                                     break;
                                                 }
@@ -397,9 +399,11 @@ public class Main {
                         }
                         boolean encontrado = false;
                         for (int i = 0 ; i < numJugadores ; i++){
-                            if (nombreBuscar.equals(jugadores[i].obtenerNombre())){ 
-                                System.out.println(jugadores[i]);
-                                encontrado = true;
+                            if (jugadores[i] != null){
+                                if (nombreBuscar.equals(jugadores[i].obtenerNombre())){ 
+                                    System.out.println(jugadores[i]);
+                                    encontrado = true;
+                                }
                             }
                         }
                         if (!encontrado) System.out.println("No se pudo encontrar el jugador que buscas.");
