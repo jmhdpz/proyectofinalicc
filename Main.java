@@ -20,12 +20,11 @@ public class Main {
         if (jugadores == null) jugadores = new Jugador[100];
         int numJugadores = 0;
         ObjectOutputStream escritor = new ObjectOutputStream(new FileOutputStream ("jugadores.txt"));
-
+        for (int i = 0 ; i < 100; i++) {
+            if (jugadores[i] != null) numJugadores++;
+        }
         int dia = 1;
         while (dia < 3){
-            for (int i = 0 ; i < 100; i++) {
-                if (jugadores[i] != null) numJugadores++;
-            }
             System.out.println("Bienvenido a la feria. Actualmente es el dia "+dia+". Elige una opcion:\n1. Registrar jugador.\n2. Ver mejores jugadores.\n3. Jugar. Juegos disponibles hoy: "+(dia == 1 ? "Cuadro magico (1 jugador), Conecta 4 (2 jugadores)." : "Salvados (1 jugador), Torres de Hanoi (1 jugador).")+"\n4. Ver a un jugador especifico.\n5. Avanzar dia\n6. Guardar y salir."); 
             try {
                 int eleccion = in.nextInt();
@@ -196,8 +195,8 @@ public class Main {
                                                 break;
                                             }
                                             try {
-                                                jugadores[jugador1].cobrarCreditos(8);
-                                                jugadores[jugador2].cobrarCreditos(8);
+                                                jugadores[jugador1].cobrarCreditos(15);
+                                                jugadores[jugador2].cobrarCreditos(15);
                                             } catch (ExcepcionBalanceNegativo e) {
                                                 System.out.println(e.getMessage());
                                                 break;
@@ -206,11 +205,11 @@ public class Main {
                                             while (c4.ganador() == ' ') {
                                                 try {
                                                     System.out.println(c4);
-                                                    System.out.println("Jugador uno. Elige la columna donde deseas colocar una ficha:");
+                                                    System.out.println(jugadores[jugador1].obtenerNombre()+": elige la columna donde deseas colocar una ficha:");
                                                     c4.colocarRojo(in.nextInt());
                                                     System.out.println(c4);
                                                     if (c4.ganador() != ' ') break;
-                                                    System.out.println("Jugador dos. Elige la columna donde deseas colocar una ficha:");
+                                                    System.out.println(jugadores[jugador2].obtenerNombre()+": elige la columna donde deseas colocar una ficha:");
                                                     c4.colocarAmarillo(in.nextInt());
                                                 } catch (Exception e) {
                                                     System.out.println(e.getMessage());
@@ -218,15 +217,15 @@ public class Main {
                                                 }
                                             }
                                             if (c4.ganador() == 'r') {
-                                                System.out.println("El ganador es "+jugadores[jugador1].obtenerNombre());
+                                                System.out.println("El ganador es "+jugadores[jugador1].obtenerNombre()+"\n"+c4);
                                                 jugadores[jugador1].agregarPuntos(10);
                                                 jugadores[jugador2].agregarPuntos(2);
                                             } else if (c4.ganador() == 'a') {
-                                                System.out.println("El ganador es "+jugadores[jugador2].obtenerNombre());
+                                                System.out.println("El ganador es "+jugadores[jugador2].obtenerNombre()+"\n"+c4);
                                                 jugadores[jugador2].agregarPuntos(10);
                                                 jugadores[jugador1].agregarPuntos(2);
                                             } else {
-                                                System.out.println("El juego termino en empate.");
+                                                System.out.println("El juego termino en empate.\n"+c4);
                                                 jugadores[jugador1].agregarPuntos(5);
                                                 jugadores[jugador2].agregarPuntos(5);
                                             }
