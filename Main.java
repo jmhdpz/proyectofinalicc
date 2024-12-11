@@ -61,6 +61,9 @@ public class Main {
                     break;
                     case 2:
                         try {
+                            if (numJugadores == 0) {
+                                System.out.println("Actualmente no hay jugadores registrados");
+                            } else {
                             Jugador[] jugadoresTemp = new Jugador[numJugadores];
                             for (int i = 0 ; i < numJugadores ; i++){
                                 jugadoresTemp[i] = jugadores[i];
@@ -71,7 +74,8 @@ public class Main {
                             for (int i = numJugadores - 1 ; i >= 0 ; i--){
                                 if (numJugadores - i < 4) System.out.println("\n"+(numJugadores - i) + ". "+jugadoresTemp[i]);
                             }                            
-                            System.out.println("---------------------------------");
+                            System.out.println("---------------------------------");   
+                            }
                         } catch (Exception e) {
                             System.out.println("Ocurrio un error inesperado.");
                         }
@@ -375,7 +379,6 @@ public class Main {
                                     System.out.println("El valor que introdujiste no es valido.");
                                     in.next();
                                 } catch (Exception e) {
-                                    e.printStackTrace();
                                     break; 
                                 }
                             }
@@ -425,6 +428,6 @@ public class Main {
             }
         }
         escritor.close();
-        } catch (Exception e) {}
+        } catch (Exception e) {e.printStackTrace();}
     }
 }
