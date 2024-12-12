@@ -62,12 +62,14 @@ public class Salvados {
     private boolean darPasos() {
         int acc = 0;
         int indice = 0;
-        while (acc != 99) {
+        sillas[0] = false;
+        System.out.println("1. La silla num: 1 ha sido eliminada");
+        while (acc != 98) {
             indice += pasos;
             if (indice > 99) indice -= 100;
             sillas[indice] = false;
             acc++;
-            System.out.println(acc+". La silla num: " + (indice + 1) + " ha sido eliminada");
+            System.out.println((acc+1)+". La silla num: " + (indice + 1) + " ha sido eliminada");
         }
         return verificarGanador();
     }
