@@ -1,4 +1,10 @@
 package src.Misc;
+/**
+* Clase generica para ordenar arreglos de objetos comparables mediante BubbleSort.
+* @author José María Hernández Pérez y Aldo Enrique Yañez Ramirez
+* @version 1.0 
+* @date 15-Dic-2024 
+*/
 
 public class OrdenamientoGenerico<T extends Comparable<T>> {
     

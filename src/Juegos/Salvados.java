@@ -33,7 +33,13 @@ public class Salvados {
      */
     public void elegirPasos(){
         Random rng = new Random();
-        pasos = rng.nextInt(1,100);
+        int mcd = 1;
+        do {
+            pasos = rng.nextInt(1,100);
+            for (int i = 1; i <= pasos && i <= 100; i++) {
+                if (pasos % i == 0 && 100 % i == 0) mcd = i;
+            }
+        } while (mcd != 1);
         System.out.println("El numero de pasos para esta ronda sera: "+pasos+".");
     }
 
@@ -55,34 +61,27 @@ public class Salvados {
      */
     private boolean darPasos() {
         int acc = 0;
-        int indice = 0;   
-        while (acc < 99) { 
-            int pasosAcc = pasos;
-            while (pasosAcc > 0) {
-                if (sillas[indice]) { 
-                    pasosAcc--;  
-                }
-                indice = (indice + 1) % 100;
-            }
-            indice = (indice - 1 + 100) % 100;
-            if (sillas[indice]) {
-                sillas[indice] = false;
-                acc++;
-                System.out.println("La silla num: " + (indice + 1) + " ha sido eliminada");
-            }
+        int indice = 0;
+        while (acc != 99) {
+            indice += pasos;
+            if (indice > 99) indice -= 100;
+            sillas[indice] = false;
+            acc++;
+            System.out.println(acc+". La silla num: " + (indice + 1) + " ha sido eliminada");
         }
-        return verificarGanador(); 
+        return verificarGanador();
     }
-    
+        
     /**
      * @return int - El indice de la silla ganadora. 0 si no se ha encontrado.
      */
     public int buscarTrue(){
         if (!verificarGanador()) return 0;
+        int ganador = 0;
         for (int i = 0 ; i < 100; i++){
-            if (sillas[i]) return i;
+            if (sillas[i]) ganador = i;
         }
-        return 0;
+        return ganador;
     }
 
     /**
@@ -93,9 +92,7 @@ public class Salvados {
      */
     public boolean jugar(int n) throws ExcepcionSillaInvalida {
         if (n < 1 || n > 100) throw new ExcepcionSillaInvalida();
-        while (!verificarGanador()) {
-            darPasos();
-        }
+        darPasos();
         return (n - 1) == buscarTrue(); 
     }   
 }

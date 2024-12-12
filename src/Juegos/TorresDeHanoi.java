@@ -1,5 +1,11 @@
 package src.Juegos;
 import src.Excepciones.*;
+/**
+* Clase que modela un juego de Torres de Hanoi de 6 discos.
+* @author José María Hernández Pérez y Aldo Enrique Yañez Ramirez
+* @version 1.0 
+* @date 15-Nov-2024 
+*/
 public class TorresDeHanoi {
     /**
      * Representacion en arreglos de las torres

@@ -3,6 +3,12 @@ package src.Juegos;
 import src.Excepciones.ExcepcionColumnaInvalida;
 import src.Excepciones.ExcepcionColumnaLlena;
 
+/**
+ * Clase que modela un juego de conecta 4
+ * @author José María Hernández Pérez y Aldo Enrique Yañez Ramirez
+ * @version 1.0 
+ * @date 15-dic-2024
+ */
 public class ConectaCuatro {
     /**
      * Cadena utilizada para la representacion grafica del tablero

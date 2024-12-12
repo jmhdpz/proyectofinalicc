@@ -253,7 +253,7 @@ public class Main {
                                     in.nextLine();
                                     switch (eleccion2) {
                                         case 1:
-                                            System.out.println("Bienvenido al juego de salvados. En este juego, tendras 100 sillas para escoger. Al inicio de la ronda se te dira el numero de pasos que se dara cada vez (es decir, si el numero de pasos es 3, la primera silla en eliminarse es 3, y la segunda es 6, y asi sucesivamente.) para eliminar sillas, y con esta informacion, deberas elegir una silla, intentando predecir la ultima silla en ser eliminada, es decir, la ganadora. Ten en cuenta que si este numero de pasos causa que se repitan las sillas eliminadas (Por ejemplo, 50 causaria que se elimine 50, luego 100, y luego de vuelta a 50), este se volvera a generar aleatoriamente, pero tu eleccion ya no podra cambiarse.\n\nEste juego cuesta 15 creditos.\nSi adivinas la silla ganadora, obtendras 12 puntos. Si no, solo obtendras 2.");
+                                            System.out.println("Bienvenido al juego de salvados. En este juego, tendras 100 sillas para escoger. Al inicio de la ronda se te dira el numero de pasos que se dara cada vez (es decir, si el numero de pasos es 3, la primera silla en eliminarse es 3, y la segunda es 6, y asi sucesivamente.) para eliminar sillas, y con esta informacion, deberas elegir una silla, intentando predecir la ultima silla en ser eliminada, es decir, la ganadora.\n\nEste juego cuesta 15 creditos.\nSi adivinas la silla ganadora, obtendras 12 puntos. Si no, solo obtendras 2.");
                                             Salvados sv = new Salvados();   
                                             boolean terminado = false;
                                             boolean ganador = false;
@@ -295,7 +295,7 @@ public class Main {
                                                         System.out.println("Felicidades, elegiste la silla ganadora.");
                                                         ganador = true;
                                                     } else { 
-                                                        System.out.println("Has elegido la silla incorrecta. La silla ganadora era la numero " + sv.buscarTrue());
+                                                        System.out.println("Has elegido la silla incorrecta. La silla ganadora era la numero " + (sv.buscarTrue()+1));
                                                     }
                                                     terminado = true;
                                                 } catch (InputMismatchException e) {
@@ -410,10 +410,6 @@ public class Main {
                         break;
                     case 5:
                         dia++;
-                        if (dia == 3){
-                            in.close();
-                            lector.close();
-                        }
                         break;
                     case 6:
                         in.close();
@@ -430,7 +426,10 @@ public class Main {
                 in.nextLine();
             }
         }
+        escritor.writeObject(jugadores);
         escritor.close();
-        } catch (Exception e) {e.printStackTrace();}
+        } catch (Exception e) {
+            System.out.println("Ocurrio un error inesperado.");
+        }
     }
 }

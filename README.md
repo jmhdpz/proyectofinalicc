@@ -28,3 +28,9 @@ Día 1:
 Día 2:
 - Salvados (Completo, documentado)
 - Torres de Hanoi (Completo, documentado)
+
+### Instrucciones de ejecucion:
+Compilar el programa, no modificar el archivo jugadores.txt, ni ninguno de los archivos en los subdirectorios. Seguir las instrucciones de ejecucion que da el programa. El programa compila y funciona a la perfeccion en la siguiente version de java, obtenida usando java --version:
+java 23 2024-09-17
+Java(TM) SE Runtime Environment (build 23+37-2369)
+Java HotSpot(TM) 64-Bit Server VM (build 23+37-2369, mixed mode, sharing)

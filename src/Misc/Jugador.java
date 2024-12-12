@@ -3,6 +3,12 @@ package src.Misc;
 import java.io.Serializable;
 
 import src.Excepciones.ExcepcionBalanceNegativo;
+/**
+* Clase que modela un Jugador para la feria.
+* @author José María Hernández Pérez y Aldo Enrique Yañez Ramirez
+* @version 1.0 
+* @date 15-Dic-2024
+*/
 
 public class Jugador implements Comparable<Jugador>, Serializable {
     /**
